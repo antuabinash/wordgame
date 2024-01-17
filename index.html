@@ -40,9 +40,11 @@
       text-align: center;
     }
 
-    button {
-      display: block;
-      margin: 10px auto;
+     button#clear-button,
+    button#enter-button,
+    button#clear-all-button {
+      display: inline-block;
+      margin: 10px;
       padding: 10px;
       cursor: pointer;
       border: none;
@@ -58,6 +60,10 @@
 
     button#enter-button {
       background-color: #32cd32; /* Green */
+    }
+
+    button#clear-all-button {
+      background-color: #808080; /* Gray */
     }
   </style>
 </head>
@@ -85,10 +91,18 @@
 
 <div id="display-box"></div>
 
-<button id="enter-button" onclick="enterWord()">Enter Word</button>
-<button id="clear-button" onclick="clearWord()">Clear Word</button>
+<!-- Place "Clear" and "Enter" buttons in a row -->
+<div style="text-align: center;">
+  <button id="enter-button" onclick="enterWord()">Enter</button>
+  <button id="clear-button" onclick="clearWord()">Clear</button>
+  
+</div>
 
 <div id="word-board"></div>
+<div style="text-align: center;">
+
+<!-- Added Clear All Words button -->
+<button id="clear-all-button" onclick="clearAllWords()">Clear All Words</button>
 
 <script>
   let selectedWord = "";
@@ -102,7 +116,7 @@
   function clearWord() {
     selectedWord = "";
     updateDisplay();
-    playSound('sample1.mp3');
+    playSound('sample.mp3');
   }
 
   function enterWord() {
@@ -111,7 +125,7 @@
       selectedWord = "";
       updateDisplay();
       updateWordBoard();
-      playSound('sample.mp3');
+      playSound('sample1.mp3');
     }
   }
 
@@ -121,6 +135,11 @@
 
   function updateWordBoard() {
     document.getElementById("word-board").innerText = "Entered Words: " + enteredWords.join(', ');
+  }
+
+  function clearAllWords() {
+    enteredWords = [];
+    updateWordBoard();
   }
 
   function playSound(soundFile) {
